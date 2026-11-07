@@ -3,7 +3,7 @@
 **一句话**：Step 1 已做完并冻结，现在轮到 Step 2 —— 用同一份 900 行题目，跑 2B / 4B 两个模型共 1800 条预测，然后算准确率。
 
 > 先把下面两个空填上，再发给队友：
-> - GitHub 仓库：`[填地址]`
+> - GitHub 仓库：https://github.com/ew-wlee/Drug-Label-RAG
 > - OneDrive 大文件：`[填分享链接]`
 
 ---

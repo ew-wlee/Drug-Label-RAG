@@ -4,7 +4,7 @@
 
 > 先把下面两个空填上，再发给队友：
 > - GitHub 仓库：https://github.com/ew-wlee/Drug-Label-RAG
-> - OneDrive 大文件：`[填分享链接]`
+> - OneDrive 大文件：https://hkustconnect-my.sharepoint.com/:f:/r/personal/zlioe_connect_ust_hk/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fzlioe%5Fconnect%5Fust%5Fhk%2FDocuments%2FMSBD5018%2DGroupProject&share=cgrEwqUfjGtVRbXLvs3HMmwtEgUBztFNxtQ4dbos%2DffhxWKkmA
 
 ---
 

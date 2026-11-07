@@ -1,0 +1,92 @@
+{
+  "1-1": {
+    "model": "qwen3.5:2b",
+    "system": "general_rerank",
+    "qid": "48cd574a3fa0a1e0"
+  },
+  "1-2": {
+    "model": "qwen3.5:2b",
+    "system": "no_rag",
+    "qid": "48cd574a3fa0a1e0"
+  },
+  "1-3": {
+    "model": "qwen3.5:2b",
+    "system": "domain_rerank",
+    "qid": "48cd574a3fa0a1e0"
+  },
+  "2-1": {
+    "model": "qwen3.5:4b",
+    "system": "domain_rerank",
+    "qid": "929e50022540f576"
+  },
+  "2-2": {
+    "model": "qwen3.5:4b",
+    "system": "general_rerank",
+    "qid": "929e50022540f576"
+  },
+  "2-3": {
+    "model": "qwen3.5:4b",
+    "system": "no_rag",
+    "qid": "929e50022540f576"
+  },
+  "3-1": {
+    "model": "qwen3.5:4b",
+    "system": "no_rag",
+    "qid": "a581b698fea75dcf"
+  },
+  "3-2": {
+    "model": "qwen3.5:4b",
+    "system": "domain_rerank",
+    "qid": "a581b698fea75dcf"
+  },
+  "3-3": {
+    "model": "qwen3.5:4b",
+    "system": "general_rerank",
+    "qid": "a581b698fea75dcf"
+  },
+  "4-1": {
+    "model": "qwen3.5:4b",
+    "system": "general_rerank",
+    "qid": "a2dd9a0282d03a59"
+  },
+  "4-2": {
+    "model": "qwen3.5:4b",
+    "system": "domain_rerank",
+    "qid": "a2dd9a0282d03a59"
+  },
+  "4-3": {
+    "model": "qwen3.5:4b",
+    "system": "no_rag",
+    "qid": "a2dd9a0282d03a59"
+  },
+  "5-1": {
+    "model": "qwen3.5:2b",
+    "system": "domain_rerank",
+    "qid": "061d774dcba89f70"
+  },
+  "5-2": {
+    "model": "qwen3.5:2b",
+    "system": "no_rag",
+    "qid": "061d774dcba89f70"
+  },
+  "5-3": {
+    "model": "qwen3.5:2b",
+    "system": "general_rerank",
+    "qid": "061d774dcba89f70"
+  },
+  "6-1": {
+    "model": "qwen3.5:2b",
+    "system": "general_rerank",
+    "qid": "5008ba460cc97fb3"
+  },
+  "6-2": {
+    "model": "qwen3.5:2b",
+    "system": "domain_rerank",
+    "qid": "5008ba460cc97fb3"
+  },
+  "6-3": {
+    "model": "qwen3.5:2b",
+    "system": "no_rag",
+    "qid": "5008ba460cc97fb3"
+  }
+}

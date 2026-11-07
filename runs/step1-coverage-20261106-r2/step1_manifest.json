@@ -1,0 +1,42 @@
+{
+  "run_id": "step1-coverage-20261106-r2",
+  "status": "passed",
+  "seed": 5018,
+  "model_revisions": {
+    "embedder": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "reranker": "233902d25c440f23af6f7d6e94d2946bac0bee0a"
+  },
+  "ollama_runtime_check": "deferred_to_step2",
+  "artifacts": {
+    "README.md": "a3c51f8dc511b8669c6c524172e0eec8f8ec490048a29edc92f79df7443b6469",
+    "configs/step1_main.json": "291e73a3eaf372dd43070480e4e2b4f99b8c5a23c4fd5dd7c9a6bd4f3c81e1f0",
+    "openfda_rxqa.py": "6a6bc9bf4a12277852c5dca3cdac8f595741f39858ca3df48f9b2cea857ec2b5",
+    "runs/step1-coverage-20261106-r2/catalog_manifest.json": "f0b931cc5809b5f672edad6c11e3f054f1a36ece6e5003e272ac29af90c3d545",
+    "runs/step1-coverage-20261106-r2/catalog_progress.json": "42bef45682784a98e94a7732c6c7d4dfc9e1dd1fc57149550fcd6b8ed725b3b0",
+    "runs/step1-coverage-20261106-r2/fdarxbench_frozen.json": "afcfd8772d42b180323367a00bed28eef7532cdb6b9907c0a22daec85e0a39bd",
+    "runs/step1-coverage-20261106-r2/fdarxbench_set_ids.json": "11f3a3556e926cfcce072a738332a81d6963a84916ee15d594ba000aea19293c",
+    "runs/step1-coverage-20261106-r2/index/checkpoint-fixed.json": "65ba7fead0410c4042567a4493c8540c94d50b3944873c345f0e74deb0c5a386",
+    "runs/step1-coverage-20261106-r2/index/checkpoint-section.json": "59965b355f8abbe2b9b255af34dd6a7313c780fede339b792ce0ad4fdc88e9ec",
+    "runs/step1-coverage-20261106-r2/index/fixed.f32": "bbb9940184743abec65360f48a4d8ce0389ce31791daf945736ce21b286901fa",
+    "runs/step1-coverage-20261106-r2/index/index.json": "2a702d35c8b9f1a664f14955f1c50dbfe14ec74931163260a1afc43be211ad8d",
+    "runs/step1-coverage-20261106-r2/index/labels.sqlite": "31824ba6bc7816a4fa6cc6122ac3b947bb6ee94b0798176c66224099c632fbd6",
+    "runs/step1-coverage-20261106-r2/index/section.f32": "dfc686dc322d06e35ccc9af6e10f74b282c9abe3a28dd1948aecce9e7c58ff5c",
+    "runs/step1-coverage-20261106-r2/label_catalog.sqlite": "f377338841b751e5acb7ab556b54010715b31ac582034fb34265878dd368980f",
+    "runs/step1-coverage-20261106-r2/resource_usage.json": "17f8cf71075fc196761e46debbed141838c0337e9720986151f7f224313bcf61",
+    "runs/step1-coverage-20261106-r2/rxqa_answer_key.json": "9d304894eb48c67c6404492c20da85510892fb5c327cbae30f03a2a8a9a6fce2",
+    "runs/step1-coverage-20261106-r2/rxqa_blind_review.json": "cff6f2cb83dc6583506a45abf9a1da98fc2da15604d18f18723d92b6b26e36a9",
+    "runs/step1-coverage-20261106-r2/rxqa_extension_60.json": "f9b75a2e83fd7236d2ae0be967b1e653f7177cdce374352948417cca11c507bf",
+    "runs/step1-coverage-20261106-r2/rxqa_label_map.json": "53b05118781840c92e9afff16101b392d561c1c2a0c00417cd4751c4f73bac7a",
+    "runs/step1-coverage-20261106-r2/rxqa_label_map_selected.json": "5e93431e8181fffac7c2412d055729e792766f98bab9d1123e4a680190eca550",
+    "runs/step1-coverage-20261106-r2/rxqa_prompts.jsonl": "aebea2ab1905d9ed0b130971aae8e762f862661a138054554727c5b1f58620d5",
+    "runs/step1-coverage-20261106-r2/rxqa_selection_input.jsonl": "ac7b14e7783100a6669f210a5d7b0a275d45628b81e35785e67c70e1ce82710c",
+    "runs/step1-coverage-20261106-r2/scope_decision.json": "25d9862babd2ca5877cffc9ba3145854e73d6369b5c5eea342ae5bb6e4f4a455",
+    "runs/step1-coverage-20261106-r2/source_manifest.json": "865563dd873a03a63a9e25cf7e3e95a712e6dc5fa29b31ee64f42f1eb5916d86",
+    "runs/step1-coverage-20261106-r2/subset_labels.jsonl": "3949a3ff6cf9656cf5401e1e1e359b125be9b1063926604941f73a3283945fd2",
+    "runs/step1-coverage-20261106-r2/subset_manifest.json": "9b58bf248971839964e38bfc09b6421f7e7f9cb6c228fbc66176b08af14f94ea",
+    "runs/step1-coverage-20261106-r2/validation_report.json": "9e42e138e985298fd47df4cb4fb4f032fb50699a149a64907c399e7b2c000a0b",
+    "scripts/validate_step1.py": "370c4bfa8002bc9139358d1ae4eae0f996fe6e7188eacf12f4d45b7188bb0684",
+    "select_subset.py": "d96ac110af0f7765631cada31bd432354fc20c24c93dbc52f3652f43b41acfca",
+    "tests/test_step1.py": "ff58241ad67f66e92c35c0f06ccfc5bddf7d39fa4fed28a0d63d6d72f3b2b936"
+  }
+}

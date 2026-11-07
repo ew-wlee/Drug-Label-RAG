@@ -1,0 +1,14 @@
+{
+  "reviewer": "agent-blind-review",
+  "answer_key_accessed": false,
+  "approved_qids": [
+    "3", "21", "33", "43", "67", "82", "85", "91", "96", "98", "111", "112", "116", "120", "122", "124", "133", "138", "153", "165", "168", "179", "182", "183", "187", "205", "228", "229", "251", "253", "267", "275", "285", "286"
+  ],
+  "notes": {
+    "82": "Option-only coverage is appropriate: all medication options are included symmetrically; creatinine is excluded as a laboratory analyte.",
+    "153": "Option-only coverage includes hydroquinone and sunscreen candidates without using the correct option.",
+    "182": "Option-only coverage includes theophylline and warfarin candidates symmetrically; no individual quinolone is named in the stem.",
+    "267": "Option-only coverage is appropriate: all medication options are included symmetrically; creatinine is excluded as a laboratory analyte."
+  },
+  "exact_sample_decision": "The 30 sampled exact mappings are drug or substance matches rather than blocked ordinary words; no answer-key information was consulted."
+}

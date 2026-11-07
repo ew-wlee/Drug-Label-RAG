@@ -1,0 +1,43 @@
+{
+  "model": "qwen3.5:4b",
+  "manifest_sha256": "3b6225ff07117608fdd54a729806671494c57980272eab2b7e7dd2b972423c1c",
+  "judge_model": null,
+  "metrics": [
+    {
+      "system": "no_rag",
+      "n": 30,
+      "answerable_n": 20,
+      "refusal_n": 10,
+      "em": 0.0,
+      "f1": 0.16715690864582108,
+      "factual_f1": 0.20805194857802298,
+      "multihop_f1": 0.12626186871361922,
+      "refusal_rate": 1,
+      "valid_citation_id_rate": null
+    },
+    {
+      "system": "general_rerank",
+      "n": 30,
+      "answerable_n": 20,
+      "refusal_n": 10,
+      "em": 0.0,
+      "f1": 0.3935115684188926,
+      "factual_f1": 0.414606809803408,
+      "multihop_f1": 0.3724163270343772,
+      "refusal_rate": 1,
+      "valid_citation_id_rate": 0.8
+    },
+    {
+      "system": "domain_rerank",
+      "n": 30,
+      "answerable_n": 20,
+      "refusal_n": 10,
+      "em": 0.0,
+      "f1": 0.4213303504421228,
+      "factual_f1": 0.4173743430915428,
+      "multihop_f1": 0.42528635779270274,
+      "refusal_rate": 1,
+      "valid_citation_id_rate": 0.8
+    }
+  ]
+}

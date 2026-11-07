@@ -1,0 +1,57 @@
+\documentclass[11pt]{article}
+\usepackage{acl}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage{booktabs}
+\title{Domain-Aware Retrieval for FDA Drug Label Question Answering}
+\author{Chung Ho Man \and Chang Juxiao \and Tsang King Hoi \and Li Zeyuan\\MSBD 5018, Group 18}
+\begin{document}
+\maketitle
+\begin{abstract}
+We study evidence retrieval and answer generation for drug-label questions. Our design compares a closed-book generator, fixed-window dense retrieval, and section-aware hybrid retrieval, with an optional shared reranker. On 60 answerable FDARxBench questions, section-aware hybrid retrieval with shared reranking increased evidence coverage at rank five from 0.525 to 0.643. Passage Recall@5 changed from 0.649 to 0.660. On a paired 30-question generation subset, domain RAG increased token F1 over general RAG for Qwen3.5 2B and 4B. The paired intervals include zero, and refusal behavior differs by generator.
+\end{abstract}
+\section{Introduction}
+Drug-label question answering requires the system to retrieve the correct product label and retain qualifying details such as formulation, population, and dose units. We ask whether respecting label structure, combining lexical and dense rankings, and reranking candidate passages improve evidence coverage and generated answers. We use the published label snapshot so passage identifiers remain traceable. The study separates three effects: whether label boundaries preserve evidence spans, whether hybrid retrieval changes ranking, and whether a shared cross-encoder selects stronger evidence from each candidate pool. The question-answering comparison then tests whether any retrieval gain carries through to generated answers.
+\section{Related Work}
+Retrieval-augmented generation conditions a language model on passages from an external index \citep{lewis2020}. We use a frozen retrieval and generation pipeline to isolate retrieval design choices. FDARxBench evaluates FDA label understanding across factual, multihop, and refusal questions \citep{xiong2026}. Our setup uses corpus-wide retrieval with the question as the only query input. This exposes confusion between products as well as between sections within a product. We compare BM25 \citep{robertson2009} with a sentence embedding retriever and combine ranks using reciprocal rank fusion \citep{cormack2009}.
+\section{Data and Methods}
+The pinned dataset contains 17,207 questions and 699 labels with a valid set identifier and nonempty passages. We sampled 30 questions per task with seed 5018. Gold labels and evidence remain outside model inputs. The full label index is available to every retrieval setting.
+\paragraph{General RAG} We flatten each label and create 160-word windows with 24 words of overlap. We prefix the drug name and rank the resulting chunks by MiniLM cosine similarity.
+\paragraph{Domain-adapted RAG} We use the release's section-aware passage boundaries and split long passages with the same window parameters. We fuse the top 20 dense and top 20 BM25 candidates using RRF with constant 60. The shared reranking experiment scores the first 10 candidates from each method with the frozen MS MARCO MiniLM cross-encoder. Both systems use the same reranker.
+\paragraph{Answer conditions} No RAG receives the question alone. Each retrieval condition supplies five excerpts. We keep the generator, decoding, and answer rules fixed within each comparison. RAG answers cite excerpts by ID.
+\section{Evaluation}
+Recall@\(k\) measures the fraction of gold passages with at least one matching evidence-word position among the first \(k\) chunks. MRR@10 uses the first such hit. E80@\(k\) requires at least 80\% of each gold span to be recovered across the retrieved chunks. We align annotated text to the source passage, falling back to the full source passage when a contiguous match is unavailable. Refusal questions contribute to answer evaluation only.
+\section{Retrieval Results}
+\input{retrieval-table}
+The domain pipeline with reranking increased E80@5 by 11.9 percentage points (paired stratified bootstrap 95\% interval [4.8, 20.0]). Recall@5 changed by 1.1 points (interval [$-7.7$, 10.4]). Section-aware dense retrieval alone increased E80@5 from .491 to .524. Adding hybrid fusion before reranking raised MRR@10 from .594 to .630 while E80@5 moved from .524 to .521. A separate lexical ablation yielded Recall@5 of .617 with fixed windows and .465 with section-aware windows. These results describe the 60 sampled answerable questions. 
+\paragraph{Reranker sensitivity}
+We reranked both candidate sets on the shared 15-question subset using frozen Qwen3-Reranker-0.6B in half precision on Apple GPU. Ten questions contribute to retrieval metrics. With MiniLM reranking, General and Domain E80@5 were both .400. With Qwen3 reranking, both were .450. Qwen3 Recall@5 was .620 for General and .450 for Domain. This smaller subset does not reproduce the main sample's domain advantage in evidence coverage. The generation tables use the shared MiniLM reranker.
+\section{Answer Evaluation}
+We use token F1 and normalized exact match as lexical diagnostics for answerable questions and score refusal using an explicit abstention marker. A fixed judge prompt grades accuracy, completeness, and reference support without system identifiers. Citation-ID validity checks whether all explicit IDs refer to the supplied excerpts. This syntactic measure does not test whether the citation entails the claim.
+\input{answer-table}
+The paired generation subset uses the first 10 sampled questions in each task. Every model answers the same 30 questions under all three conditions. We use local Qwen3.5 2B and 4B with deterministic decoding and no search tools. Table~\ref{tab:answers} reports the shared MiniLM reranker conditions. All six answerable exact-match scores were zero. Compared with General RAG, the domain pipeline gained 4.2 F1 points for 2B (95\% paired bootstrap interval [$-1.1$, 9.2]) and 2.8 points for 4B (interval [$-2.9$, 8.5]).
+The 4B model abstained on 5 of 20 answerable questions in No RAG, 1 in General RAG, and 0 in Domain RAG. All three 4B conditions abstained on all 10 refusal questions. On the answerable subset, 2B generated valid citation IDs on 6 of 20 General RAG responses and 8 of 20 Domain RAG responses. For 4B, both RAG conditions reached 16 of 20.
+\paragraph{Model-size comparison}
+We also ran 9B on the first five questions in each task and evaluated all three model sizes on those same 15 questions. On this subset, 2B General RAG had higher F1 than 2B Domain RAG, while 4B and 9B showed the opposite ordering (Table~\ref{tab:shared}). All three 9B conditions abstained on all five unanswerable questions. In 9B No RAG, the model also abstained on nine of ten answerable questions. Both 9B RAG conditions answered all ten. The subset suggests that context changes abstention behavior, and that the ranking between retrievers is sensitive to the sampled questions.
+\input{shared-table}
+\paragraph{Blinded model grading}
+Qwen3.5 4B graded the 2B outputs under a fixed rubric using the reference answer and gold evidence. On the 20 answerable questions, it marked 1, 5, and 8 responses as both correct and complete for No RAG, General RAG, and Domain RAG, respectively. It flagged unsupported content in 12, 11, and 6 responses, respectively. These rates reflect one judge and the provided reference passages. Claims about faithfulness to the retrieved excerpts require checking those excerpts directly.
+\section{Error Analysis}
+In the 2B erlotinib case (\texttt{3dc3a3d799ac175f}), the General system included excerpts from a different product and missed the reference's pulmonary symptoms. Domain RAG found the correct passage and included the symptoms, then added unrelated material and ended with an abstention marker. This case shows how a higher lexical score can coexist with an answer that needs editing.
+In the lexical ablation, the calcitriol overdose question (\texttt{46a946235c2203dd}) reached the E80 criterion with section-aware chunks. The fixed window touched the correct passage but crossed into an adjacent passage and left part of the annotated evidence outside the retrieved text. For the RYTARY strengths question (\texttt{514a8bbc9c360176}), the fixed-window system recovered the evidence in the top five. The section-aware system retrieved five chunks from the correct drug without retrieving the annotated strengths passage.
+\section{Discussion}
+The pilot uses a balanced sample and a shared, frozen label snapshot. It isolates retrieval design and leaves all model weights frozen. Its scope is English drug labels from FDARxBench. A larger DailyMed or openFDA index would introduce additional label versions and product aliases, which may change cross-product confusion. Its scores characterize that sample. The larger number of section-aware chunks changes competition for the top ranks, and lexical matching can favor nearby passages about the same drug. Overlap-based recall can count partial evidence, while E80 is a coverage threshold rather than a judgment of semantic sufficiency. The generation sample is small. Token F1 can reward partial or contradictory answers. Our case review identifies examples for independent human scoring, which is needed to validate the automated judgment and estimate unsupported claim rates.
+\section{Conclusion}
+On the sampled corpus-wide task, the domain pipeline with shared reranking improved the fraction of gold passages covered at rank five. The token overlap advantage for generated answers was smaller and uncertain. Refusal differences and the erlotinib example support reporting evidence coverage, factual quality, and abstention separately.
+
+\bibliography{references}
+
+\appendix
+\section{Reproduction Details}
+The FDARxBench data come from revision \texttt{019785d2802c}. The corpus excludes five records with an empty set identifier and no passages. We report the observed counts in the pinned files. The benchmark question mix differs from our balanced pilot. The code saves input hashes, question IDs, and retrieval outputs, and the public result bundle records the model manifests for the local runs.
+\paragraph{Evidence and prompts}
+Both retrieval branches prefix the drug name to each candidate. The RAG prompt contains up to five ordered excerpts with bracketed IDs. We set the generator temperature to zero, cap output at 384 tokens, and disable thinking and web tools. A refusal counts when the normalized response matches the abstention template. Exact match and F1 strip bracketed citation IDs before tokenization.
+\paragraph{Uncertainty}
+Paired bootstrap intervals resample questions within factual and multihop strata 5,000 times with seed 5018. The intervals assume questions are exchangeable within each task stratum. Questions about the same drug can share label content, so these intervals are descriptive. The human-review packet presents shuffled answers alongside the exact retrieved excerpts and includes a separate system key.
+\end{document}

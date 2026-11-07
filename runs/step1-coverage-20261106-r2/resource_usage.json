@@ -1,0 +1,26 @@
+{
+  "catalog": {
+    "elapsed_seconds": 99.44,
+    "peak_rss_bytes": 52527104
+  },
+  "mapping": {
+    "elapsed_seconds": 229.46,
+    "peak_rss_bytes": 188268544
+  },
+  "index": {
+    "last_resume_elapsed_seconds": 443.91,
+    "peak_rss_bytes": 606846976,
+    "peak_memory_footprint_bytes": 1496859800,
+    "index_bytes": 3979036750,
+    "fixed_chunks": 395316,
+    "section_chunks": 454013
+  },
+  "prepare": {
+    "elapsed_seconds": 403.29,
+    "peak_rss_bytes": 1627111424,
+    "peak_memory_footprint_bytes": 1512917128,
+    "questions": 300,
+    "rows": 900
+  },
+  "note": "These are local engineering measurements, not experimental settings or research variables."
+}

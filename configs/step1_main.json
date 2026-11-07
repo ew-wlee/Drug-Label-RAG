@@ -1,0 +1,70 @@
+{
+  "run_id": "step1-coverage-20261106-r2",
+  "seed": 5018,
+  "paths": {
+    "openfda_dir": "data/openfda",
+    "original_openfda_manifest": "data/openfda/manifest.json",
+    "rxqa_csv": "rxqa/rxqa_openfda.csv",
+    "fdarxbench_data": "FDARxBench/data",
+    "run_dir": "runs/step1-coverage-20261106-r2"
+  },
+  "source": {
+    "openfda_last_updated": "2026-11-06",
+    "openfda_total": 262909,
+    "previous_openfda_total": 262907,
+    "openfda_partitions": 14,
+    "allow_same_day_official_refresh": true,
+    "source_override_reason": "The official archives available on 2026-11-07 differ in size and SHA-256 from the earlier same-day manifest and contain 262909 rather than 262907 records. Preserve the original manifest and freeze the newly downloaded complete snapshot under a new run ID.",
+    "rxqa_revision": "203979bf928c1fe9e45aa89e2ed76c3d2a63b503",
+    "rxqa_sha256": "52f99903426296c5576757aacaa500200616ecb501fb5d2b9d2c287ddfef8853",
+    "fdarxbench_revision": "019785d2802c4ceec583e4d4b82b902d7a8f9910"
+  },
+  "subset": {
+    "max_labels": 10000,
+    "max_chunks": 900000,
+    "max_index_bytes": 12884901888,
+    "background_labels": 2000,
+    "hard_negative_labels": 2000,
+    "candidates_per_question": 8,
+    "exact_match_review_sample": 30,
+    "stem_set_ids_per_alias": 8,
+    "stem_labels_per_alias": 32,
+    "option_set_ids_per_alias": 4,
+    "option_labels_per_alias": 16
+  },
+  "runtime": {
+    "peak_rss_target_bytes": 6442450944,
+    "encode_batch_size": 32,
+    "retrieval_block_size": 8192,
+    "query_batch_size": 4,
+    "sqlite_batch_size": 1000
+  },
+  "chunking": {
+    "size_words": 160,
+    "overlap_words": 24
+  },
+  "retrieval": {
+    "embedding": "sentence-transformers/all-MiniLM-L6-v2",
+    "reranker": "cross-encoder/ms-marco-MiniLM-L6-v2",
+    "dense_top_k": 20,
+    "sparse_top_k": 20,
+    "rrf_constant": 60,
+    "rerank_candidates": 10,
+    "generation_evidence": 5,
+    "query_uses_options": false
+  },
+  "generation": {
+    "models": ["qwen3.5:2b", "qwen3.5:4b"],
+    "temperature": 0,
+    "seed": 5018,
+    "num_ctx": 8192,
+    "num_predict": 16,
+    "tools": false,
+    "runtime_check_deferred_to_step2": true
+  },
+  "evaluation": {
+    "rxqa_main_questions": 300,
+    "rxqa_extension_per_difficulty": 15,
+    "difficulties": ["Easy", "Hard", "Medium", "Trivial"]
+  }
+}

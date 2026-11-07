@@ -1,0 +1,84 @@
+{
+  "qids": [
+    "061d774dcba89f70",
+    "1242748a13d4ac16",
+    "241f213e018d87f3",
+    "33d5ceb4abf7e885",
+    "48cd574a3fa0a1e0",
+    "5008ba460cc97fb3",
+    "52476349b97ccd4a",
+    "6ac7ffd451f1af75",
+    "718fb800cdd4311c",
+    "7d15f3321967b1ac",
+    "929e50022540f576",
+    "a581b698fea75dcf",
+    "d27628bed8b028b9",
+    "d4c61b7403e4a06d",
+    "fe8e69cd078e7642"
+  ],
+  "metrics": [
+    {
+      "model": "qwen3.5:2b",
+      "system": "no_rag",
+      "f1": 0.2651365253836085,
+      "refused_unanswerable": 1,
+      "refused_answerable": 0
+    },
+    {
+      "model": "qwen3.5:2b",
+      "system": "general_rerank",
+      "f1": 0.3321102875914019,
+      "refused_unanswerable": 2,
+      "refused_answerable": 0
+    },
+    {
+      "model": "qwen3.5:2b",
+      "system": "domain_rerank",
+      "f1": 0.31374180475861096,
+      "refused_unanswerable": 1,
+      "refused_answerable": 0
+    },
+    {
+      "model": "qwen3.5:4b",
+      "system": "no_rag",
+      "f1": 0.18291181234852041,
+      "refused_unanswerable": 5,
+      "refused_answerable": 2
+    },
+    {
+      "model": "qwen3.5:4b",
+      "system": "general_rerank",
+      "f1": 0.38350351977767466,
+      "refused_unanswerable": 5,
+      "refused_answerable": 1
+    },
+    {
+      "model": "qwen3.5:4b",
+      "system": "domain_rerank",
+      "f1": 0.40676294298639193,
+      "refused_unanswerable": 5,
+      "refused_answerable": 0
+    },
+    {
+      "model": "qwen3.5:9b",
+      "system": "no_rag",
+      "f1": 0.0125,
+      "refused_unanswerable": 5,
+      "refused_answerable": 9
+    },
+    {
+      "model": "qwen3.5:9b",
+      "system": "general_rerank",
+      "f1": 0.314005297678988,
+      "refused_unanswerable": 5,
+      "refused_answerable": 0
+    },
+    {
+      "model": "qwen3.5:9b",
+      "system": "domain_rerank",
+      "f1": 0.32430401074437926,
+      "refused_unanswerable": 5,
+      "refused_answerable": 0
+    }
+  ]
+}

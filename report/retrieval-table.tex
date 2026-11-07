@@ -1,0 +1,16 @@
+\begin{table}[t]
+\centering
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrr}
+\toprule
+System & R@5 & E80@5 & MRR@10 \\
+\midrule
+General dense & .576 & .491 & .589 \\
+Section dense & .549 & .524 & .594 \\
+Domain hybrid & .562 & .521 & .630 \\
+General + rerank & .649 & .525 & .688 \\
+Domain + rerank & .660 & .643 & .713 \\
+\bottomrule
+\end{tabular}
+\caption{Retrieval on 60 answerable questions.}
+\end{table}

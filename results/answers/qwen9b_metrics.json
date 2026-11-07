@@ -1,0 +1,43 @@
+{
+  "model": "qwen3.5:9b",
+  "manifest_sha256": "80bf5246d9d1ad418cce10169bb1c61a030e4c62da402274ca1ed569efd76e36",
+  "judge_model": null,
+  "metrics": [
+    {
+      "system": "no_rag",
+      "n": 15,
+      "answerable_n": 10,
+      "refusal_n": 5,
+      "em": 0.0,
+      "f1": 0.0125,
+      "factual_f1": 0.025,
+      "multihop_f1": 0.0,
+      "refusal_rate": 1,
+      "valid_citation_id_rate": null
+    },
+    {
+      "system": "general_rerank",
+      "n": 15,
+      "answerable_n": 10,
+      "refusal_n": 5,
+      "em": 0.0,
+      "f1": 0.314005297678988,
+      "factual_f1": 0.2888852068198749,
+      "multihop_f1": 0.33912538853810115,
+      "refusal_rate": 1,
+      "valid_citation_id_rate": 0.9
+    },
+    {
+      "system": "domain_rerank",
+      "n": 15,
+      "answerable_n": 10,
+      "refusal_n": 5,
+      "em": 0.0,
+      "f1": 0.32430401074437926,
+      "factual_f1": 0.30944513699498294,
+      "multihop_f1": 0.3391628844937756,
+      "refusal_rate": 1,
+      "valid_citation_id_rate": 1
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "qids": [
+    "061d774dcba89f70",
+    "1242748a13d4ac16",
+    "241f213e018d87f3",
+    "33d5ceb4abf7e885",
+    "48cd574a3fa0a1e0",
+    "5008ba460cc97fb3",
+    "52476349b97ccd4a",
+    "6ac7ffd451f1af75",
+    "718fb800cdd4311c",
+    "7d15f3321967b1ac",
+    "929e50022540f576",
+    "a581b698fea75dcf",
+    "d27628bed8b028b9",
+    "d4c61b7403e4a06d",
+    "fe8e69cd078e7642"
+  ],
+  "metrics": [
+    {
+      "reranker": "MiniLM",
+      "system": "general_rerank",
+      "n": 10,
+      "recall@5": 0.57,
+      "evidence80@5": 0.4,
+      "mrr@10": 0.5
+    },
+    {
+      "reranker": "MiniLM",
+      "system": "domain_rerank",
+      "n": 10,
+      "recall@5": 0.4,
+      "evidence80@5": 0.4,
+      "mrr@10": 0.34444444444444444
+    },
+    {
+      "reranker": "Qwen3",
+      "system": "general_rerank",
+      "n": 10,
+      "recall@5": 0.62,
+      "evidence80@5": 0.45,
+      "mrr@10": 0.44
+    },
+    {
+      "reranker": "Qwen3",
+      "system": "domain_rerank",
+      "n": 10,
+      "recall@5": 0.45,
+      "evidence80@5": 0.45,
+      "mrr@10": 0.4642857142857143
+    }
+  ]
+}

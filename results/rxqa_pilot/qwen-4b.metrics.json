@@ -1,0 +1,122 @@
+[
+  {
+    "system": "no_rag",
+    "difficulty": "all",
+    "n": 12,
+    "correct": 5,
+    "accuracy": 0.4166666666666667,
+    "invalid": 0
+  },
+  {
+    "system": "no_rag",
+    "difficulty": "Easy",
+    "n": 3,
+    "correct": 1,
+    "accuracy": 0.3333333333333333,
+    "invalid": 0
+  },
+  {
+    "system": "no_rag",
+    "difficulty": "Hard",
+    "n": 3,
+    "correct": 1,
+    "accuracy": 0.3333333333333333,
+    "invalid": 0
+  },
+  {
+    "system": "no_rag",
+    "difficulty": "Medium",
+    "n": 3,
+    "correct": 1,
+    "accuracy": 0.3333333333333333,
+    "invalid": 0
+  },
+  {
+    "system": "no_rag",
+    "difficulty": "Trivial",
+    "n": 3,
+    "correct": 2,
+    "accuracy": 0.6666666666666666,
+    "invalid": 0
+  },
+  {
+    "system": "general",
+    "difficulty": "all",
+    "n": 12,
+    "correct": 6,
+    "accuracy": 0.5,
+    "invalid": 0
+  },
+  {
+    "system": "general",
+    "difficulty": "Easy",
+    "n": 3,
+    "correct": 1,
+    "accuracy": 0.3333333333333333,
+    "invalid": 0
+  },
+  {
+    "system": "general",
+    "difficulty": "Hard",
+    "n": 3,
+    "correct": 1,
+    "accuracy": 0.3333333333333333,
+    "invalid": 0
+  },
+  {
+    "system": "general",
+    "difficulty": "Medium",
+    "n": 3,
+    "correct": 1,
+    "accuracy": 0.3333333333333333,
+    "invalid": 0
+  },
+  {
+    "system": "general",
+    "difficulty": "Trivial",
+    "n": 3,
+    "correct": 3,
+    "accuracy": 1.0,
+    "invalid": 0
+  },
+  {
+    "system": "domain",
+    "difficulty": "all",
+    "n": 12,
+    "correct": 4,
+    "accuracy": 0.3333333333333333,
+    "invalid": 0
+  },
+  {
+    "system": "domain",
+    "difficulty": "Easy",
+    "n": 3,
+    "correct": 0,
+    "accuracy": 0.0,
+    "invalid": 0
+  },
+  {
+    "system": "domain",
+    "difficulty": "Hard",
+    "n": 3,
+    "correct": 1,
+    "accuracy": 0.3333333333333333,
+    "invalid": 0
+  },
+  {
+    "system": "domain",
+    "difficulty": "Medium",
+    "n": 3,
+    "correct": 1,
+    "accuracy": 0.3333333333333333,
+    "invalid": 0
+  },
+  {
+    "system": "domain",
+    "difficulty": "Trivial",
+    "n": 3,
+    "correct": 2,
+    "accuracy": 0.6666666666666666,
+    "invalid": 0
+  }
+]

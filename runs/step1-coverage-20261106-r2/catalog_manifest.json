@@ -1,0 +1,11 @@
+{
+  "labels": 256131,
+  "unique_set_ids": 256131,
+  "aliases": 562496,
+  "integrity": "ok",
+  "bytes": 291790848,
+  "sha256": "f377338841b751e5acb7ab556b54010715b31ac582034fb34265878dd368980f",
+  "elapsed_seconds": 99.293,
+  "full_text_vectors": false,
+  "full_text_index": false
+}

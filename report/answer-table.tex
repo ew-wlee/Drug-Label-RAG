@@ -1,0 +1,18 @@
+\begin{table}[t]
+\centering
+\begin{tabular}{llrr}
+\toprule
+Qwen3.5 & System & F1 & Refusal \\
+\midrule
+2B & No RAG & .267 & 1/10 \\
+ & General RAG & .324 & 3/10 \\
+ & Domain RAG & .366 & 2/10 \\
+\midrule
+4B & No RAG & .167 & 10/10 \\
+ & General RAG & .394 & 10/10 \\
+ & Domain RAG & .421 & 10/10 \\
+\bottomrule
+\end{tabular}
+\caption{Paired generation. F1 averages 20 answerable questions per row. Refusal uses the 10 unanswerable questions.}
+\label{tab:answers}
+\end{table}

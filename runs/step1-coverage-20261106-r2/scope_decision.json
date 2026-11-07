@@ -1,0 +1,41 @@
+{
+  "decision": "coverage_subset",
+  "full_openfda_vector_index": false,
+  "reason": "Build one auditable question-relevant corpus with hard negatives and fixed background under strict disk/RAM limits.",
+  "resource_caps": {
+    "max_labels": 10000,
+    "max_chunks": 600000,
+    "max_index_bytes": 12884901888,
+    "background_labels": 2000,
+    "hard_negative_labels": 2000,
+    "candidates_per_question": 8,
+    "exact_match_review_sample": 30,
+    "stem_set_ids_per_alias": 8,
+    "stem_labels_per_alias": 32,
+    "option_set_ids_per_alias": 4,
+    "option_labels_per_alias": 16
+  },
+  "runtime_controls": {
+    "peak_rss_target_bytes": 6442450944,
+    "encode_batch_size": 32,
+    "retrieval_block_size": 8192,
+    "query_batch_size": 4,
+    "sqlite_batch_size": 1000
+  },
+  "core_labels_before_background": 6379,
+  "selected_labels": 10000,
+  "selection_rules": {
+    "max_labels": 10000,
+    "max_chunks": 600000,
+    "max_index_bytes": 12884901888,
+    "background_labels": 2000,
+    "hard_negative_labels": 2000,
+    "candidates_per_question": 8,
+    "exact_match_review_sample": 30,
+    "stem_set_ids_per_alias": 8,
+    "stem_labels_per_alias": 32,
+    "option_set_ids_per_alias": 4,
+    "option_labels_per_alias": 16
+  },
+  "interpretation_limit": "Paired comparison on a fixed coverage-oriented subset; not full-corpus openFDA retrieval."
+}

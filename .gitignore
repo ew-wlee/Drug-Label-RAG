@@ -1,0 +1,14 @@
+# 大文件 / 可再生产物，不进 Git
+runs/*/index/
+runs/*/*.sqlite
+runs/*/*.f32
+data/openfda/*.zip
+FDARxBench/
+
+# 本地环境 / 缓存
+.venv/
+.cache/
+__pycache__/
+*.py[cod]
+.DS_Store
+.codebuddy/

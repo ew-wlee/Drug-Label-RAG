@@ -1,0 +1,64 @@
+{
+  "model": "qwen3.5:2b",
+  "manifest_sha256": "8a230d7333ad1d13bf1afab0d170382b40ad95e6a50f48b1ff650d96a1651861",
+  "judge_model": "qwen3.5:4b",
+  "metrics": [
+    {
+      "system": "no_rag",
+      "n": 30,
+      "answerable_n": 20,
+      "refusal_n": 10,
+      "em": 0.0,
+      "f1": 0.2669063082999863,
+      "factual_f1": 0.2314467720631682,
+      "multihop_f1": 0.30236584453680443,
+      "refusal_rate": 0.1,
+      "valid_citation_id_rate": null,
+      "judge": {
+        "correct_complete": 0.05,
+        "correct": 0.35,
+        "complete": 0.05,
+        "faithful": 0.35,
+        "unsupported": 0.6
+      }
+    },
+    {
+      "system": "general_rerank",
+      "n": 30,
+      "answerable_n": 20,
+      "refusal_n": 10,
+      "em": 0.0,
+      "f1": 0.3242629599826825,
+      "factual_f1": 0.2935440056882011,
+      "multihop_f1": 0.35498191427716397,
+      "refusal_rate": 0.3,
+      "valid_citation_id_rate": 0.3,
+      "judge": {
+        "correct_complete": 0.25,
+        "correct": 0.55,
+        "complete": 0.35,
+        "faithful": 0.5,
+        "unsupported": 0.55
+      }
+    },
+    {
+      "system": "domain_rerank",
+      "n": 30,
+      "answerable_n": 20,
+      "refusal_n": 10,
+      "em": 0.0,
+      "f1": 0.3660030803619014,
+      "factual_f1": 0.3224357442874949,
+      "multihop_f1": 0.40957041643630787,
+      "refusal_rate": 0.2,
+      "valid_citation_id_rate": 0.4,
+      "judge": {
+        "correct_complete": 0.4,
+        "correct": 0.7,
+        "complete": 0.4,
+        "faithful": 0.75,
+        "unsupported": 0.3
+      }
+    }
+  ]
+}

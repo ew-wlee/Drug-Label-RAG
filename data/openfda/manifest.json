@@ -1,0 +1,240 @@
+[
+  {
+    "file": "drug-label-0001-of-0014.json.zip",
+    "zip_bytes": 136776614,
+    "json_bytes": 632124697,
+    "sha256": "d46c999c1947092f6e18e5233482e6d1c02312c89d32ce906e3b19672a696546",
+    "meta": {
+      "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+      "terms": "https://open.fda.gov/terms/",
+      "license": "https://open.fda.gov/license/",
+      "last_updated": "2026-11-06",
+      "results": {
+        "skip": 0,
+        "limit": 20000,
+        "total": 262907
+      }
+    }
+  },
+  {
+    "file": "drug-label-0002-of-0014.json.zip",
+    "zip_bytes": 150641430,
+    "json_bytes": 706395913,
+    "sha256": "5ab46f90f6b44e2aa9affb3cb9a1420d82b92a8f942c23fe463364760a659d66",
+    "meta": {
+      "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+      "terms": "https://open.fda.gov/terms/",
+      "license": "https://open.fda.gov/license/",
+      "last_updated": "2026-11-06",
+      "results": {
+        "skip": 20000,
+        "limit": 20000,
+        "total": 262907
+      }
+    }
+  },
+  {
+    "file": "drug-label-0003-of-0014.json.zip",
+    "zip_bytes": 142781257,
+    "json_bytes": 684704880,
+    "sha256": "968b7138703f8100b14008bced2b2a4531f4fab250b207279e9c05eb19608f40",
+    "meta": {
+      "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+      "terms": "https://open.fda.gov/terms/",
+      "license": "https://open.fda.gov/license/",
+      "last_updated": "2026-11-06",
+      "results": {
+        "skip": 40000,
+        "limit": 20000,
+        "total": 262907
+      }
+    }
+  },
+  {
+    "file": "drug-label-0004-of-0014.json.zip",
+    "zip_bytes": 143646842,
+    "json_bytes": 682942064,
+    "sha256": "7dfa569f2d8f065241260fd9a4886d0ef0a3120fd6ee31d6d07c234e689e8c91",
+    "meta": {
+      "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+      "terms": "https://open.fda.gov/terms/",
+      "license": "https://open.fda.gov/license/",
+      "last_updated": "2026-11-06",
+      "results": {
+        "skip": 60000,
+        "limit": 20000,
+        "total": 262907
+      }
+    }
+  },
+  {
+    "file": "drug-label-0005-of-0014.json.zip",
+    "zip_bytes": 131371800,
+    "json_bytes": 602210867,
+    "sha256": "f699a9578a0c5d6f5abd59491e85ce3c2c5e4567a51003fee350566c56ba5812",
+    "meta": {
+      "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+      "terms": "https://open.fda.gov/terms/",
+      "license": "https://open.fda.gov/license/",
+      "last_updated": "2026-11-06",
+      "results": {
+        "skip": 80000,
+        "limit": 20000,
+        "total": 262907
+      }
+    }
+  },
+  {
+    "file": "drug-label-0006-of-0014.json.zip",
+    "zip_bytes": 142945565,
+    "json_bytes": 663374204,
+    "sha256": "5781d2d281f00c57d2634422e88d204f4ab5cf8444979f7006f538b3a4f26d3b",
+    "meta": {
+      "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+      "terms": "https://open.fda.gov/terms/",
+      "license": "https://open.fda.gov/license/",
+      "last_updated": "2026-11-06",
+      "results": {
+        "skip": 100000,
+        "limit": 20000,
+        "total": 262907
+      }
+    }
+  },
+  {
+    "file": "drug-label-0007-of-0014.json.zip",
+    "zip_bytes": 148088534,
+    "json_bytes": 709864804,
+    "sha256": "90742968499056f8845d54427ea2950526b02c3f289aedd40679ed8e120a0e89",
+    "meta": {
+      "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+      "terms": "https://open.fda.gov/terms/",
+      "license": "https://open.fda.gov/license/",
+      "last_updated": "2026-11-06",
+      "results": {
+        "skip": 120000,
+        "limit": 20000,
+        "total": 262907
+      }
+    }
+  },
+  {
+    "file": "drug-label-0008-of-0014.json.zip",
+    "zip_bytes": 143986533,
+    "json_bytes": 689892534,
+    "sha256": "9d5577a314a25811fefbde4767c9b37f3913d9a65fdc458c6336b5aed532339e",
+    "meta": {
+      "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+      "terms": "https://open.fda.gov/terms/",
+      "license": "https://open.fda.gov/license/",
+      "last_updated": "2026-11-06",
+      "results": {
+        "skip": 140000,
+        "limit": 20000,
+        "total": 262907
+      }
+    }
+  },
+  {
+    "file": "drug-label-0009-of-0014.json.zip",
+    "zip_bytes": 131403022,
+    "json_bytes": 601716321,
+    "sha256": "423686b2ac39507df6931677ae004637f2f017f82cbe44b047a75ba358b9d453",
+    "meta": {
+      "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+      "terms": "https://open.fda.gov/terms/",
+      "license": "https://open.fda.gov/license/",
+      "last_updated": "2026-11-06",
+      "results": {
+        "skip": 160000,
+        "limit": 20000,
+        "total": 262907
+      }
+    }
+  },
+  {
+    "file": "drug-label-0010-of-0014.json.zip",
+    "zip_bytes": 137836018,
+    "json_bytes": 638135082,
+    "sha256": "3b52cde3709f43d454872fcaffdb78395b270bc65272c06ef1005cc77c998864",
+    "meta": {
+      "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+      "terms": "https://open.fda.gov/terms/",
+      "license": "https://open.fda.gov/license/",
+      "last_updated": "2026-11-06",
+      "results": {
+        "skip": 180000,
+        "limit": 20000,
+        "total": 262907
+      }
+    }
+  },
+  {
+    "file": "drug-label-0011-of-0014.json.zip",
+    "zip_bytes": 149368557,
+    "json_bytes": 710367272,
+    "sha256": "3744b3ae389d13e8f30cade845ea29e0fc75bb043dcda980c2025693f0c10522",
+    "meta": {
+      "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+      "terms": "https://open.fda.gov/terms/",
+      "license": "https://open.fda.gov/license/",
+      "last_updated": "2026-11-06",
+      "results": {
+        "skip": 200000,
+        "limit": 20000,
+        "total": 262907
+      }
+    }
+  },
+  {
+    "file": "drug-label-0012-of-0014.json.zip",
+    "zip_bytes": 140448098,
+    "json_bytes": 678984257,
+    "sha256": "8ec9b1418c25a8bb472a36e6bc0b2cbabb210d48d5dd734197e022d21529ed58",
+    "meta": {
+      "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+      "terms": "https://open.fda.gov/terms/",
+      "license": "https://open.fda.gov/license/",
+      "last_updated": "2026-11-06",
+      "results": {
+        "skip": 220000,
+        "limit": 20000,
+        "total": 262907
+      }
+    }
+  },
+  {
+    "file": "drug-label-0013-of-0014.json.zip",
+    "zip_bytes": 135355983,
+    "json_bytes": 627030157,
+    "sha256": "2d7d9682bb1dc608c198b25f4655629e874bd36827b741e40512d5288afcc775",
+    "meta": {
+      "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+      "terms": "https://open.fda.gov/terms/",
+      "license": "https://open.fda.gov/license/",
+      "last_updated": "2026-11-06",
+      "results": {
+        "skip": 240000,
+        "limit": 20000,
+        "total": 262907
+      }
+    }
+  },
+  {
+    "file": "drug-label-0014-of-0014.json.zip",
+    "zip_bytes": 24227937,
+    "json_bytes": 121775899,
+    "sha256": "b433ab6a44616055e476a7876dbdd70a7f81f656e17ee28dc50dad20e67316bd",
+    "meta": {
+      "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+      "terms": "https://open.fda.gov/terms/",
+      "license": "https://open.fda.gov/license/",
+      "last_updated": "2026-11-06",
+      "results": {
+        "skip": 260000,
+        "limit": 2907,
+        "total": 262907
+      }
+    }
+  }
+]

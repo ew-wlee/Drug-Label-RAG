@@ -1,0 +1,24 @@
+{
+  "config_hash": "2597788419b8b1e85adf29ec131a68cf0e655b7014a83a15dbef284a555b01bd",
+  "completed_archives": [
+    "drug-label-0001-of-0014.json.zip",
+    "drug-label-0002-of-0014.json.zip",
+    "drug-label-0003-of-0014.json.zip",
+    "drug-label-0004-of-0014.json.zip",
+    "drug-label-0005-of-0014.json.zip",
+    "drug-label-0006-of-0014.json.zip",
+    "drug-label-0007-of-0014.json.zip",
+    "drug-label-0008-of-0014.json.zip",
+    "drug-label-0009-of-0014.json.zip",
+    "drug-label-0010-of-0014.json.zip",
+    "drug-label-0011-of-0014.json.zip",
+    "drug-label-0012-of-0014.json.zip",
+    "drug-label-0013-of-0014.json.zip",
+    "drug-label-0014-of-0014.json.zip"
+  ],
+  "last_archive": {
+    "read": 2909,
+    "usable": 2871,
+    "seconds": 2.013
+  }
+}

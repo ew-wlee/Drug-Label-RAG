@@ -1,0 +1,23 @@
+{
+  "archives": {
+    "pilot-2026-11-05.zip": "3fdb024349188fe83dcbdceb58fe15e36c10522a42f89ddef8c2ef42a5aeeee0"
+  },
+  "read": 20000,
+  "usable": 19494,
+  "unique": 19494,
+  "indexed": 1000,
+  "seed": 5018,
+  "embedding": "sentence-transformers/all-MiniLM-L6-v2",
+  "counts": {
+    "fixed": 21881,
+    "section": 27406
+  },
+  "dimension": 384,
+  "snapshot": "2026-11-05",
+  "reranker": "cross-encoder/ms-marco-MiniLM-L6-v2",
+  "reranker_revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+  "rxqa_revision": "203979bf928c1fe9e45aa89e2ed76c3d2a63b503",
+  "rxqa_sha256": "52f99903426296c5576757aacaa500200616ecb501fb5d2b9d2c287ddfef8853",
+  "per_difficulty": 3,
+  "index_bytes": 704326144
+}

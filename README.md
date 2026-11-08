@@ -1,199 +1,183 @@
-# MSBD 5018 · Group 18 · Domain-Aware FDA Drug Label QA
+# Domain-Aware FDA Drug Label QA
 
-**领域感知的 FDA 药品标签问答 / Domain-aware question answering over FDA drug labels**
+MSBD 5018 · Group 18 · 2026-11-08 更新
 
-本项目比较 No RAG、General RAG 和 Domain-Adapted RAG，研究标签章节切分、混合检索与重排能否改善证据覆盖和最终回答。FDARxBench 用于短答、检索和拒答评估。RxQA 用于四选一准确率评估，使用独立的 openFDA 语料。
+本项目研究药品说明书的章节结构与混合检索能否改善问答。FDARxBench 衡量证据覆盖、短答和拒答，RxQA 衡量四选一准确率。
 
-This project compares No RAG, General RAG, and Domain-Adapted RAG to study how section-aware chunking, hybrid retrieval, and reranking affect evidence coverage and answer quality. FDARxBench evaluates short answers, evidence retrieval, and abstention. RxQA evaluates four-option accuracy against a separate openFDA corpus.
+**FDARxBench 和 RxQA 主实验均已完成。** RxQA 的 300 道题由两款模型在三个条件下各答一遍，共 1,800 条预测，全部可解析。两位组员的独立人工盲评仍待完成。
 
-## 1. 实验设计 / Experimental design
+[最终报告](report/Group18_Report_Final.pdf) · [答辩 PPT](presentation/Group18_Presentation_Final.pptx) · [正式结果](runs/step2-rxqa-20261107/) · [交接说明](HANDOFF.md)
 
-| 系统 / System | 检索与生成 / Retrieval and generation |
+## 1. 主要结果
+
+### FDARxBench
+
+| 指标 | No RAG | General RAG | Domain RAG |
+|---|---:|---:|---:|
+| Recall@5，60 道可答题 | — | 64.9% | 66.0% |
+| Evidence80@5，60 道可答题 | — | 52.5% | **64.3%** |
+| Qwen3.5 2B 短答 F1，20 道可答题 | 0.267 | 0.324 | 0.366 |
+| Qwen3.5 4B 短答 F1，20 道可答题 | 0.167 | 0.394 | 0.421 |
+
+Domain 相对 General 的 Evidence80@5 提高 **11.9 个百分点**，配对 95% 区间为 **+4.8 至 +20.0**。两个模型的短答 F1 差值区间均包含零。生成主表另有 10 道拒答题，单独统计。9B 在三款模型共享的 15 题子集上评估。
+
+[检索结果](results/retrieval.json) · [检索配对区间](results/retrieval_paired.json) · [短答与拒答结果](results/answers/)
+
+### openFDA × RxQA
+
+| 模型 | No RAG | General RAG | Domain RAG |
+|---|---:|---:|---:|
+| Qwen3.5 2B | 33.7%（101/300） | 42.3%（127/300） | **43.0%（129/300）** |
+| Qwen3.5 4B | 40.7%（122/300） | 61.0%（183/300） | **62.3%（187/300）** |
+
+两种 RAG 相对 No RAG 的准确率差值区间均高于零。Domain 相对 General 的增量为 **2B +0.7 个百分点**（95% 区间 −3.7 至 +5.0）和 **4B +1.3 个百分点**（−2.3 至 +5.0），额外收益仍不确定。
+
+[2B 分难度结果](runs/step2-rxqa-20261107/qwen-2b.metrics.json) · [4B 分难度结果](runs/step2-rxqa-20261107/qwen-4b.metrics.json) · [配对区间](runs/step2-rxqa-20261107/paired-accuracy.json)
+
+## 2. 实验设计
+
+| 条件 | 检索与生成 |
 |---|---|
-| No RAG | 直接回答题目。RxQA 同时给 A–D 选项。 / Answer directly from the question. Include options A–D for RxQA. |
-| General RAG | 固定窗口 → MiniLM 余弦检索 → 共享重排器。 / Fixed windows → MiniLM cosine retrieval → shared reranker. |
-| Domain-Adapted RAG | 按章节切分 → MiniLM + BM25 → RRF → 共享重排器。 / Section-aware chunks → MiniLM + BM25 → RRF → shared reranker. |
+| No RAG | 直接回答。RxQA 同时提供 A–D 选项。 |
+| General RAG | 展平说明书，固定窗口切分，使用 MiniLM 向量余弦检索，再重排。 |
+| Domain RAG | 保留章节边界，在章节内切长段。用相同的向量检索与 BM25 各取前 20 名，经 RRF 融合，再重排。 |
 
-- **中文**：窗口上限 160 个空白分隔词，重叠 24 词。两组都在检索文本中加上药品名。检索只传题干，RRF 使用两路各前 20 名及常数 60。主实验使用冻结的 MS MARCO MiniLM 对各组前 10 个候选重排，生成最多看到 5 块证据。各条件使用同一个生成模型和相同解码参数。
-- **English** — Windows contain up to 160 whitespace-delimited words with 24 words of overlap. Both indexes prefix the drug name. Retrieval uses the question stem. RRF combines the top 20 from each ranking with a constant of 60. A frozen MS MARCO MiniLM cross-encoder reranks up to 10 candidates per system, and the generator receives up to five excerpts. Each paired comparison holds the generator and decoding settings fixed.
+- 两种切法的窗口上限均为 **160 个空白分隔词**，相邻窗口重叠 **24 词**。检索片段都加上药品名。
+- 向量模型为 `sentence-transformers/all-MiniLM-L6-v2`。RRF 常数为 **60**，按 (1/(60+r)) 累加各路名次 (r) 的得分。
+- 两种 RAG 共用 `cross-encoder/ms-marco-MiniLM-L6-v2`，重排前 **10** 个候选，给生成模型最多 **5** 个片段。检索查询只使用题干。同一模型的三个条件使用相同解码设置。
+- FDARxBench 另外比较了章节切分、混合检索及重排。主结果衡量整套领域检索方案相对固定窗口基线的效果。消融见[报告](report/Group18_Report_Final.pdf)。
 
-FDARxBench 使用官方标签及段落坐标。openFDA 管线保留标签版本和章节，按标签 ID 及同一标签集和版本内的文本摘要去重，并使用 SQLite FTS5 和磁盘映射的精确余弦索引。训练、重排微调和近似索引是后续扩展。
+### 项目架构
 
-FDARxBench uses the official labels and passage coordinates. The openFDA pipeline retains label versions and section names, deduplicates by label ID and by text hash within a label set and version, and uses SQLite FTS5 plus disk-mapped exact cosine search. Training, reranker fine-tuning, and approximate indexes are future extensions.
-
-## 2. 项目导航 / Repository map
-
-| 路径 / Path | 用途 / Purpose |
-|---|---|
-| [experiment.py](experiment.py) | FDARxBench 切分、检索、重排与证据评分 / FDARxBench chunking, retrieval, reranking, and evidence scoring |
-| [answer.py](answer.py) | 本地短答生成、自动评分及续跑 / Local short-answer generation, grading, and resumption |
-| [compare.py](compare.py) | 按题配对 bootstrap / Paired question-level bootstrap |
-| [openfda_rxqa.py](openfda_rxqa.py) | openFDA 导入、索引和 RxQA 选择题评估 / openFDA ingestion, indexing, and RxQA evaluation |
-| [data/openfda/manifest.json](data/openfda/manifest.json) | 14 卷快照、大小和 SHA-256 / Snapshot metadata, sizes, and SHA-256 for 14 archives |
-| [results](results) | 指标、逐题预测和检索证据 / Metrics, per-question predictions, and retrieved evidence |
-| [review](review) | 人工盲评材料与独立揭盲表 / Human review packet and separate answer key |
-| [OPENFDA_PLAN.md](OPENFDA_PLAN.md) | 详细设计和扩展计划 / Detailed design and extension plan |
-| [select_subset.py](select_subset.py) | 覆盖型子集目录、题目映射、盲审与固定背景 / Coverage-subset selection |
-| [Step 1 配置](configs/step1_main.json) · [准入校验](scripts/validate_step1.py) | 冻结主实验并自动验收 / Freeze and validate Step 1 |
-| [报告草稿 / Report draft](report/Group18_Report_Draft.pdf) · [展示稿 / Slides](presentation/Group18_Presentation.pptx) | FDARxBench 阶段交付 / FDARxBench deliverables |
-
-### Step 1 主运行 / Step 1 main run
-
-当前运行为 `runs/step1-coverage-20261106-r2/`。由于官方 2026-11-06 分卷在下载时发生同日刷新，实际快照为 262,909 条；原始 `data/openfda/manifest.json` 保留不变，实际哈希和两条新增记录差异由 `source_manifest.json` 记录。
-
-本运行使用统一冻结的 10,000 份覆盖型标签：6,379 份核心相关标签、2,000 份困难负例和 1,621 份固定背景。Fixed/Section 索引分别为 395,316/454,013 chunks。300 道 RxQA 均保留，296 道为 `stem_exact`、4 道为 `option_only`；900 行 prompts 不含 gold，答案独立保存在 `rxqa_answer_key.json`。该结果只能解释为固定覆盖型子集上的配对比较，而非全量 openFDA corpus-wide retrieval。
-
-```sh
-python select_subset.py prepare-sources
-python select_subset.py catalog
-python select_subset.py map
-# 按 rxqa_blind_review.json 完成不接触答案表的审核
-python select_subset.py select
-python openfda_rxqa.py index --zip data/openfda/drug-label-*.json.zip \
-  --selected-labels runs/step1-coverage-20261106-r2/subset_manifest.json \
-  --out runs/step1-coverage-20261106-r2/index --device mps \
-  --encode-batch-size 32 --max-chunks 900000 --max-index-bytes 12884901888
-python openfda_rxqa.py prepare --index runs/step1-coverage-20261106-r2/index \
-  --csv rxqa/rxqa_openfda.csv --out runs/step1-coverage-20261106-r2/rxqa_prompts.jsonl \
-  --device mps --block-size 8192
-python scripts/validate_step1.py
+```mermaid
+flowchart LR
+    FDA["FDARxBench 官方说明书<br/>699 份"] --> Corpus["按基准使用同一检索库"]
+    Open["openFDA 快照<br/>262,909 条记录"] --> Select["题干与四个选项匹配<br/>冻结 10,000 份说明书"]
+    Select --> Corpus
+    Corpus --> Fixed["固定窗口"]
+    Corpus --> Section["按章节切分"]
+    Fixed --> Dense["General · MiniLM 向量检索"]
+    Section --> Hybrid["Domain · MiniLM + BM25<br/>RRF 融合"]
+    Query["题干"] --> Dense
+    Query --> Hybrid
+    Dense --> G["共享 MiniLM 重排器<br/>General 独立取前 5 块"]
+    Hybrid --> D["共享 MiniLM 重排器<br/>Domain 独立取前 5 块"]
+    G --> Model["同一 Qwen · 分条件生成"]
+    D --> Model
+    Query --> Prompt["题目输入<br/>RxQA 加入 A–D 选项"]
+    Prompt --> Model
+    Prompt --> Closed["No RAG · 直接生成"]
+    Model --> Score["按题配对评分"]
+    Closed --> Score
+    Gold["独立答案表 / 官方参考证据"] -. 仅评分 .-> Score
 ```
 
-Step 1 不调用 Ollama 或生成模型。资源数字仅是本地工程测量，不是研究变量。
+### 数据范围与答案隔离
 
-## 3. 环境准备 / Setup
+**FDARxBench 抽题，检索库使用基准内全部 699 份有效说明书。** 固定版本含 17,207 道题。用种子 5018 从事实、多跳、拒答各抽 30 题，检索指标使用其中 60 道可答题，2B 和 4B 的生成主实验使用每类 10 道。
 
-使用 Python 3.12、sentence-transformers、Transformers、NumPy、ijson 和 SQLite FTS5。短答和选择题生成使用 Ollama。Apple Silicon 可使用 MPS 加速。Qwen3.5 2B、4B 和 9B 已在 M4、24 GB Mac 上完成短答实测，建议串行加载。以下命令从本项目目录运行。
+**RxQA 保留全部 300 道题，检索库使用 openFDA 子集。** 从 2026-11-06 的 262,909 条快照记录中冻结 10,000 份说明书记录。这样能控制磁盘和内存用量，同时保留题目涉及的候选说明书及干扰记录。
 
-Use Python 3.12, sentence-transformers, Transformers, NumPy, ijson, and SQLite FTS5. Ollama serves the generators for both tasks. Apple Silicon can accelerate indexing and reranking with MPS. Qwen3.5 2B, 4B, and 9B have been tested for short-answer generation on an M4 Mac with 24 GB of unified memory. Load models sequentially. Run commands from this project directory.
+| 构成 | 数量 | 选择依据 |
+|---|---:|---|
+| 核心标签 | 6,379 | 匹配题干、四个选项中的药品别名，并纳入与 FDARxBench `set_id` 对应的记录。 |
+| 困难候选 | 2,000 | 从核心集以外选取仍匹配题干药品别名的记录。 |
+| 固定背景 | 1,621 | 对其余记录按固定种子排序取样，补足 10,000 份。 |
+
+前置脚本读取 CSV 的正确选项做一致性检查，再将答案单独保存。**选库用题干和全部选项，未使用正确选项标记。** 296 题在题干中找到精确药品别名，4 题仅在选项中找到。这个计数表示候选药品覆盖。RxQA 缺少逐题参考证据段落，因此无法从药名映射或答题结果确认具体证据是否入库。正式结果适用于这份按题目覆盖构建的固定子集。
+
+[冻结选库清单](runs/step1-coverage-20261106-r2/subset_manifest.json) · [原始分卷与哈希](runs/step1-coverage-20261106-r2/source_manifest.json) · [Step 1 校验](runs/step1-coverage-20261106-r2/validation_report.json)
+
+## 3. 指标与验证
+
+| 指标 | 评分方式 |
+|---|---|
+| Recall@k | 对每题，计算前 k 块与参考证据词位置有重叠的参考段落比例。 |
+| Evidence80@k | 对每题，计算至少 80% 参考词位置被前 k 块合计覆盖的参考段落比例。 |
+| MRR@10 | 取第一次证据命中的排名倒数，前 10 无命中记零。 |
+| 短答 EM / F1 | 对可答题计算归一化完全匹配和词重叠 F1。应拒答题和可答题误拒单列。 |
+| RxQA accuracy | 正确选项数除以题数，按总体与四个难度分组汇报。无法解析的输出计错并单列。 |
+
+配对比较先算同一题在两个条件下的分数差，再按题型或难度分层，以种子 5018 重抽 5,000 次得到 95% 区间。证据覆盖、答案正确性与引文是否支持主张是不同的评估维度。
+
+## 4. 复现
+
+### 复核已保存的 RxQA 结果
+
+此步骤只需要 Python 3.12 和仓库中的小文件。脚本逐条核对冻结提示、原始输出、答案及分难度汇总，然后重算配对区间。
 
 ```sh
-python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-python -c 'import sqlite3; sqlite3.connect(":memory:").execute("CREATE VIRTUAL TABLE probe USING fts5(text)")'
-ollama pull qwen3.5:2b
-ollama pull qwen3.5:4b
-# Optional for the shared model-size subset
-ollama pull qwen3.5:9b
+frozen=runs/step1-coverage-20261106-r2
+run=runs/step2-rxqa-20261107
+python3 scripts/summarize_rxqa.py "$frozen" "$run" | diff - "$run/paired-accuracy.json"
 ```
 
-如 Ollama 未启动，在另一终端运行 `ollama serve`。脚本默认访问 `http://127.0.0.1:11434`，自定义端口时传 `--url`。首次运行检索会下载模型权重。
+### 重跑 RxQA 生成
 
-If Ollama is stopped, run `ollama serve` in a separate terminal. Scripts default to `http://127.0.0.1:11434`. Pass `--url` for a custom port. Retrieval model weights download on the first run.
-
-## 4. FDARxBench 复现 / Reproducing FDARxBench
-
-固定版本含 17,207 道题和 699 条可索引标签。检索样本为 90 题，事实、多跳、拒答各 30 道，种子为 5018。检索指标使用其中 60 道可回答题。
-
-The pinned revision contains 17,207 questions and 699 indexable labels. The retrieval sample contains 90 questions, with 30 factual, 30 multihop, and 30 refusal questions at seed 5018. Retrieval metrics use the 60 answerable questions.
+启动 Ollama，准备 `qwen3.5:2b` 与 `qwen3.5:4b`。原运行使用 Ollama 0.40.14，2B 为 MXFP8，4B 为 NVFP4。精确模型摘要见[运行清单](runs/step2-rxqa-20261107/model-manifest.json)。冻结提示已包含检索证据，可直接用于生成。自定义端口用 `--url` 指定。
 
 ```sh
+frozen=runs/step1-coverage-20261106-r2
+out=runs/step2-rxqa-reproduction
+mkdir -p "$out"
+for size in 2b 4b; do
+  python3 openfda_rxqa.py evaluate \
+    --input "$frozen/rxqa_prompts.jsonl" \
+    --answer-key "$frozen/rxqa_answer_key.json" \
+    --model "qwen3.5:$size" --out "$out/qwen-$size.jsonl"
+done
+python3 scripts/summarize_rxqa.py "$frozen" "$out" > "$out/paired-accuracy.json"
+```
+
+同一模型与提示可从相同的预测文件续跑。更换输入或模型时使用新输出目录。
+
+### 重跑 FDARxBench
+
+安装 `requirements.txt` 的检索依赖并启动 Ollama。需要 Apple Silicon 加速时按对应脚本的设备参数配置。
+
+```sh
+python3 -m pip install -r requirements.txt
 git clone https://github.com/xiongbetty/FDARxBench.git
 git -C FDARxBench checkout 019785d2802c4ceec583e4d4b82b902d7a8f9910
 
-python experiment.py --data FDARxBench/data --out runs/dense
-python experiment.py --data FDARxBench/data --out runs/rerank \
+python3 experiment.py --data FDARxBench/data --out runs/dense
+python3 experiment.py --data FDARxBench/data --out runs/rerank \
   --from-retrieval runs/dense --reranker cross-encoder/ms-marco-MiniLM-L6-v2
 
-for model in 2b 4b 9b; do
-  per_task=10
-  if [ "$model" = 9b ]; then per_task=5; fi
-  python answer.py runs/rerank/retrieval.jsonl "runs/qwen-${model}/predictions.jsonl" \
-    --model "qwen3.5:${model}" --systems no_rag general_rerank domain_rerank \
-    --per-task "$per_task"
+for size in 2b 4b; do
+  python3 answer.py runs/rerank/retrieval.jsonl "runs/qwen-$size/predictions.jsonl" \
+    --model "qwen3.5:$size" --systems no_rag general_rerank domain_rerank --per-task 10
 done
-
-python answer.py runs/qwen-2b/predictions.jsonl runs/qwen-2b/judged.jsonl \
-  --judge --model qwen3.5:4b --systems no_rag general_rerank domain_rerank
+python3 compare.py runs/rerank/retrieval.jsonl general_rerank domain_rerank
 ```
 
-补充消融分别测试 BM25 切分、共享 Qwen 重排器和按题配对的差值。非 Apple GPU 环境可省略 Qwen 重排命令的设备和半精度参数。
+### 重建 openFDA 检索输入
 
-The following commands reproduce the lexical chunking ablation, the shared Qwen reranker sensitivity check, and paired differences. For non-Apple GPU environments, omit the Qwen reranker device and half-precision flags.
+仅在需要重建索引或重新检索时，准备 14 个 ZIP 分卷，并用[实际冻结快照的清单](runs/step1-coverage-20261106-r2/source_manifest.json)核对 SHA-256。以下命令使用冻结标签 ID，将新产物写到单独目录。在 CPU 上运行时省略 `--device mps`。
 
 ```sh
-python experiment.py --data FDARxBench/data --out runs/lexical --lexical-only
-python experiment.py --data FDARxBench/data --out runs/qwen-rerank-shared \
-  --from-retrieval runs/dense --per-task 5 --reranker Qwen/Qwen3-Reranker-0.6B \
-  --reranker-device mps --reranker-fp16
-python compare.py runs/lexical/retrieval.jsonl fixed_bm25 section_bm25
-python compare.py runs/rerank/retrieval.jsonl general_rerank domain_rerank
-python compare.py runs/qwen-2b/predictions.jsonl general_rerank domain_rerank --answer-f1
+frozen=runs/step1-coverage-20261106-r2
+out=runs/step1-index-reproduction
+mkdir -p "$out"
+python3 openfda_rxqa.py index --zip data/openfda/drug-label-*.json.zip \
+  --selected-labels "$frozen/subset_manifest.json" --out "$out/index" \
+  --device mps --encode-batch-size 32 --max-chunks 900000 --max-index-bytes 12884901888
+python3 openfda_rxqa.py prepare --index "$out/index" --csv rxqa/rxqa_openfda.csv \
+  --out "$out/rxqa_prompts.jsonl" --device mps --block-size 8192
 ```
 
-## 5. openFDA × RxQA 复现 / Reproducing openFDA × RxQA
+本地下载包缺失的 SQLite 文件已重建。恢复版的文件哈希与原版不同，但数据库完整性、行数、FTS 查询和冻结提示中的 3,000 条证据引用均通过检查。交付 ZIP 包含冻结提示与逐题预测，大型索引和原始分卷从数据包另取。 [恢复记录](runs/step2-rxqa-20261107/index-recovery.json) · [九项验收](runs/step2-rxqa-20261107/recovered-index-validation.json)
 
-### 数据与容量 / Data and capacity
+## 5. 项目文件与剩余事项
 
-- **中文**：全量数据来自 2026-11-06 的同一 openFDA 快照，14 个 ZIP 合计约 1.86 GB，解压后的 JSON 合计约 8.75 GB。脚本直接从 ZIP 流式解析，无须另存 JSON。试跑使用独立的 `pilot-2026-11-05.zip`。若压缩包未随项目提供，请从官方来源获取并核对清单。动态下载地址可能返回新快照。
-- **English** — The complete corpus comes from a single openFDA snapshot dated 2026-11-06. Its 14 ZIPs total about 1.86 GB, and the expanded JSON totals about 8.75 GB. The indexer streams directly from ZIP. The pilot uses the separate `pilot-2026-11-05.zip`. If archives are absent, obtain them from the official source and verify against the manifest. Live URLs can return a newer snapshot. [openFDA downloads](https://open.fda.gov/apis/drug/label/download/)
-
-### 试跑 / Pilot
-
-```sh
-git clone https://github.com/Google-Health/rxqa.git
-git -C rxqa checkout 203979bf928c1fe9e45aa89e2ed76c3d2a63b503
-
-python openfda_rxqa.py index --zip data/openfda/pilot-2026-11-05.zip \
-  --out runs/rxqa-pilot --limit 1000 --device mps
-python openfda_rxqa.py prepare --index runs/rxqa-pilot --csv rxqa/rxqa_openfda.csv \
-  --out runs/rxqa-pilot/prompts.jsonl --per-difficulty 3 --device mps
-for model in 2b 4b; do
-  python openfda_rxqa.py evaluate --input runs/rxqa-pilot/prompts.jsonl \
-    --out "runs/rxqa-pilot/qwen-${model}.jsonl" --model "qwen3.5:${model}"
-done
-```
-
-无 MPS 时省略 `--device mps`。索引目录必须是新目录。换模型时复用同一份 prompts，并指定新的预测文件。RxQA 从 `correct_idx` 读取零起始选项下标，并校验对应选项文本。无法解析的模型输出计错且单列。
-
-Omit `--device mps` when unavailable. The index command requires a new output directory. Reuse the same prompts across models and write predictions to separate files. RxQA uses the zero-based `correct_idx` and verifies that it matches the answer text. Unparseable model outputs count as incorrect and are reported separately.
-
-### 主运行范围 / Main-run scope
-
-本项目不构建全量 openFDA 向量索引；正式主运行使用上述冻结的覆盖型子集。pilot 的随机 1,000 标签结果仅用于流程验证，不与 10,000 标签主运行混报。主运行索引实测约 3.98 GB，300 题 prepare 的峰值 RSS 约 1.63 GB；这些是本地复现测量，不属于研究条件。
-
-The main run uses the frozen coverage subset above rather than a full openFDA vector index. The random 1,000-label pilot remains a pipeline check and is not mixed with the main run.
-
-## 6. 指标与结果 / Metrics and results
-
-| 指标 / Metric | 定义 / Definition |
+| 路径 | 内容 |
 |---|---|
-| Recall@k | 前 k 块与官方证据词范围有重叠时计命中，按题计算命中的 gold 段落比例。 / Per-question fraction of gold passages with any word-range overlap in the top k. |
-| MRR@10 | 第一次命中的排名倒数，无命中记零。 / Reciprocal rank of the first hit in the top 10, or zero. |
-| Evidence80@k | 至少覆盖 80% 证据词位置的 gold 段落比例，可跨块合并。 / Fraction of gold passages with at least 80% word-position coverage across retrieved chunks. |
-| Short-answer EM / F1 | 归一化后的完全匹配和词重叠 F1。拒答单独统计。 / Normalized exact match and token-overlap F1. Abstentions are reported separately. |
-| RxQA accuracy | 正确选项数除以题数，同时按难度分层。 / Correct choices divided by questions, also broken down by difficulty. |
+| [experiment.py](experiment.py)、[answer.py](answer.py)、[compare.py](compare.py) | FDARxBench 检索、生成、评分和配对分析。 |
+| [select_subset.py](select_subset.py)、[openfda_rxqa.py](openfda_rxqa.py) | 选库、索引、提示生成和选择题评估。 |
+| [scripts/](scripts/) | Step 1 验收和 RxQA 正式结果复核。 |
+| [results/](results/)、[正式 RxQA 运行](runs/step2-rxqa-20261107/) | FDARxBench、历史 RxQA 试跑、正式逐题预测和指标。 |
+| [report/](report/)、[presentation/](presentation/) | LaTeX 源稿、正式报告和答辩稿。用 `cd report && latexmk -pdf main.tex` 复编报告。 |
 
-FDARxBench 拒答题不计入证据检索指标。自动盲评基于统一的参考答案和 gold evidence。实际引文是否支持具体主张由人工核对。配对区间用按任务分层的 5,000 次 bootstrap，描述本次样本。
+**人工盲评待完成。** 两位组员分别给 6 道 FDARxBench 题的 18 条回答评分，收齐后再揭盲并汇总分歧。 [盲评说明](review/README.md) · [评分表](review/scorecard.csv)
 
-FDARxBench refusal questions are excluded from retrieval metrics. Blind model grading uses the same reference answers and gold evidence across systems. Human reviewers check whether the actual cited excerpts support each claim. Paired intervals use 5,000 task-stratified bootstrap replicates and describe the evaluated sample.
-
-| 已发布实验 / Published run | No RAG | General RAG | Domain RAG |
-|---|---:|---:|---:|
-| FDARxBench Evidence80@5, 60 answerable questions | — | 52.5% | 64.3% |
-| FDARxBench Recall@5, 60 answerable questions | — | 64.9% | 66.0% |
-| FDARxBench 2B token F1, 20 answerable questions | 0.267 | 0.324 | 0.366 |
-| FDARxBench 4B token F1, 20 answerable questions | 0.167 | 0.394 | 0.421 |
-| RxQA pilot 2B accuracy, 12 questions | 6/12 | 5/12 | 5/12 |
-| RxQA pilot 4B accuracy, 12 questions | 5/12 | 6/12 | 4/12 |
-
-FDARxBench 共保存 225 条生成结果。2B 和 4B 的主表用 30 道题，9B 用三款模型共享的 15 题子集。两个主表的 Domain 对 General F1 差值区间均包含零。RxQA 的 72 条预测来自抽样语料，属于流程验证。公开 RxQA CSV 缺少逐题 gold passage，因此本项目对 RxQA 汇报答案准确率。
-
-FDARxBench includes 225 saved generations. The 2B and 4B main runs use 30 questions. The 9B run uses the 15-question subset shared across all three model sizes. The paired F1 intervals for Domain versus General include zero in both main runs. The 72 RxQA predictions are a pipeline pilot on sampled labels. The public RxQA CSV lacks per-question gold passages, so the project reports answer accuracy for RxQA.
-
-[检索汇总 / Retrieval metrics](results/retrieval.json) · [短答与共享子集 / Short answers and shared subset](results/answers) · [RxQA 逐题预测 / RxQA per-question predictions](results/rxqa_pilot) · [人工复核 / Human review](review/README.md)
-
-## 7. 常见问题 / Troubleshooting
-
-- **本地连接失败 / Connection refused** — 确认 Ollama 已启动，模型已下载，端口与 `--url` 一致。 / Confirm Ollama is running, the model is pulled, and the port matches `--url`.
-- **分卷混用 / Mixed snapshots** — 全量命令仅匹配 `drug-label-*.json.zip`。将旧版 pilot ZIP 单独用于试跑。 / Use only `drug-label-*.json.zip` for the full run and keep the older pilot ZIP separate.
-- **恢复运行 / Resuming** — 生成和评分可用相同输入、模型和输出文件续跑。更换设置时使用新输出文件。未完成的索引请用新目录重建。 / Resume generation and grading with the same input, model, and output. Choose a new output for changed settings and rebuild an incomplete index in a fresh directory.
-- **复编报告 / Rebuilding the report** — 在安装 LaTeX 后运行 `cd report && latexmk -pdf main.tex`。 / With LaTeX installed, run `cd report && latexmk -pdf main.tex`.
-
-## 8. 数据与模型来源 / Data and model sources
-
-- [FDARxBench repository](https://github.com/xiongbetty/FDARxBench) · [Paper](https://arxiv.org/abs/2603.19539)
-- [RxQA repository](https://github.com/google-health/rxqa) · [openFDA Drug Labeling](https://open.fda.gov/apis/drug/label/)
-- [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) · [MS MARCO MiniLM reranker](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2) · [Qwen3 Reranker](https://huggingface.co/Qwen/Qwen3-Reranker-0.6B)
-- [Qwen3.5 on Ollama](https://ollama.com/library/qwen3.5)
+数据与模型来源：[FDARxBench](https://github.com/xiongbetty/FDARxBench) · [RxQA](https://github.com/google-health/rxqa) · [openFDA Drug Labeling](https://open.fda.gov/apis/drug/label/) · [MiniLM 编码器](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) · [MiniLM 重排器](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2) · [Qwen3.5](https://ollama.com/library/qwen3.5)

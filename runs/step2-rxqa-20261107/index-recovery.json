@@ -1,0 +1,13 @@
+{
+  "path": "MSBD5018-GroupProject/runs/step1-coverage-20261106-r2/index/labels.sqlite",
+  "sha256": "ff85fbfe1c87e87b5fa7756866f6c53d7c9f770c8527c7a2214ce6f5492fbb22",
+  "original_sha256": "31824ba6bc7816a4fa6cc6122ac3b947bb6ee94b0798176c66224099c632fbd6",
+  "source_archives_verified": 14,
+  "labels": 10000,
+  "fixed": 395316,
+  "section": 454013,
+  "fts5_warfarin_hits": 11648,
+  "sqlite_integrity": "ok",
+  "frozen_evidence_references_verified": 3000,
+  "method": "Reconstructed SQLite tables and FTS5 from the frozen label IDs, matching source archives and original chunking code. Original vector files and evaluation prompts were reused."
+}

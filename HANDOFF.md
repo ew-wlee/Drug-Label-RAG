@@ -78,7 +78,7 @@ ollama serve
 
 - 用 `python scripts/summarize_rxqa.py runs/step1-coverage-20261106-r2 runs/step2-rxqa-20261107` 复核 1,800 条预测、分难度准确率并重算配对区间。
 - 下载包缺失的 `labels.sqlite` 已在本地下载目录重建。[恢复记录](runs/step2-rxqa-20261107/index-recovery.json) 列出原文件与新文件的 SHA-256。重建索引重新通过 [Step 1 九项验收](runs/step2-rxqa-20261107/recovered-index-validation.json)。正式答题可直接使用冻结提示。
-- 两位组员可按 [盲评说明](review/README.md) 独立评分。交卷后打开系统对应表，再汇总分歧。报告目前将人工评分列为待完成。
+- 人工盲评已完成。6 题 18 条回答的两份独立评分、揭盲记录和共识结果均已归档，见 [盲评说明](review/README.md) 与 [结果汇总](review/review_summary.md)。报告已同步更新。
 - 如课程要求补交答辩材料或上传结果，由组员确认提交版本和渠道。
 
 ---

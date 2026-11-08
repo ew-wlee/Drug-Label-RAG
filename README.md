@@ -4,7 +4,7 @@ MSBD 5018 · Group 18 · 2026-11-08 更新
 
 本项目研究药品说明书的章节结构与混合检索能否改善问答。FDARxBench 衡量证据覆盖、短答和拒答，RxQA 衡量四选一准确率。
 
-**FDARxBench 和 RxQA 主实验均已完成。** RxQA 的 300 道题由两款模型在三个条件下各答一遍，共 1,800 条预测，全部可解析。两位组员的独立人工盲评仍待完成。
+**FDARxBench 和 RxQA 主实验均已完成。** RxQA 的 300 道题由两款模型在三个条件下各答一遍，共 1,800 条预测，全部可解析。独立人工盲评也已完成：6 题、18 条回答，两份独立评分及最终共识均已归档。
 
 [最终报告](report/Group18_Report_Final.pdf) · [答辩 PPT](presentation/Group18_Presentation_Final.pptx) · [正式结果](runs/step2-rxqa-20261107/) · [交接说明](HANDOFF.md)
 
@@ -178,6 +178,6 @@ python3 openfda_rxqa.py prepare --index "$out/index" --csv rxqa/rxqa_openfda.csv
 | [results/](results/)、[正式 RxQA 运行](runs/step2-rxqa-20261107/) | FDARxBench、历史 RxQA 试跑、正式逐题预测和指标。 |
 | [report/](report/)、[presentation/](presentation/) | LaTeX 源稿、正式报告和答辩稿。用 `cd report && latexmk -pdf main.tex` 复编报告。 |
 
-**人工盲评待完成。** 两位组员分别给 6 道 FDARxBench 题的 18 条回答评分，收齐后再揭盲并汇总分歧。 [盲评说明](review/README.md) · [评分表](review/scorecard.csv)
+**人工盲评已完成。** 两位评分员分别给 6 道 FDARxBench 题的 18 条回答评分；两份评分交齐后揭盲，保留原始分歧并形成共识。 [盲评说明](review/README.md) · [共识评分表](review/scorecard.csv) · [结果与分歧](review/review_summary.md)
 
 数据与模型来源：[FDARxBench](https://github.com/xiongbetty/FDARxBench) · [RxQA](https://github.com/google-health/rxqa) · [openFDA Drug Labeling](https://open.fda.gov/apis/drug/label/) · [MiniLM 编码器](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) · [MiniLM 重排器](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2) · [Qwen3.5](https://ollama.com/library/qwen3.5)

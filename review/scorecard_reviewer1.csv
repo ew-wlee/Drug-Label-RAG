@@ -1,0 +1,19 @@
+response_id,correct,complete,faithful,unsupported_claim,notes
+1-1,1,1,N/A,0,Abstains appropriately; the reference and supplied excerpts contain no QTc cutoff for cycloserine.
+1-2,0,0,0,1,Asserts a 450 ms cutoff and cites [1], but no such excerpt is supplied; the reference says not found.
+1-3,1,1,N/A,0,Correct abstention; none of C1-C5 provides a cycloserine QTc cutoff.
+2-1,1,1,1,0,OATP1B1 inhibition, raised repaglinide exposure and severe hypoglycaemia match C1/C2/C4/C5.
+2-2,0,0,N/A,0,Says not found although C2 lists the contraindication and C3 gives the exposure increase.
+2-3,0,0,N/A,0,Fails to answer an answerable question; no evidence was supplied and no unsupported claim is made.
+3-1,1,1,N/A,0,Reference is not found; abstention is correct.
+3-2,1,1,N/A,0,C1 shows severe hepatic pharmacokinetics are unknown and gives no D-dimer interval.
+3-3,1,1,N/A,0,Abstains correctly; the excerpts discuss hepatic impairment but not D-dimer monitoring.
+4-1,1,1,N/A,0,Oral, nasogastric and gastric routes match; IV and other parenteral routes are correctly excluded.
+4-2,1,1,N/A,0,All three enteral routes match the reference; the response gives no explicit citation IDs.
+4-3,0,0,N/A,1,Claims IV only, directly contradicting C1, and then ends with an abstention marker.
+5-1,1,1,1,0,C1 supports thyrotoxicosis masking and withdrawal crisis; C5 supports beta2-mediated bronchospasm.
+5-2,1,0,N/A,1,Mechanism is broadly correct, but withdrawal crisis is omitted and anxiety/palpitations are unsupported.
+5-3,0,0,N/A,0,Masks hypoglycaemia rather than hyperthyroidism; bronchospasm and withdrawal crisis are present.
+6-1,1,1,N/A,0,MTC, MEN2 and serious hypersensitivity match; family history is only implied.
+6-2,0,0,0,1,Adds other thyroid cancers and treats gastroparesis as a contraindication; omits MEN2 and hypersensitivity.
+6-3,0,0,N/A,1,Wrong drug class (baclofen/gabapentin) and no supporting excerpt.

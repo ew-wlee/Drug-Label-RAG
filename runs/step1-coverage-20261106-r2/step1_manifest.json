@@ -8,7 +8,7 @@
   },
   "ollama_runtime_check": "deferred_to_step2",
   "artifacts": {
-    "README.md": "a3c51f8dc511b8669c6c524172e0eec8f8ec490048a29edc92f79df7443b6469",
+    "README.md": "ed0ab169121c710246e3cb2473144de60dd9659ad5a13ae44fd1da725b1721bc",
     "configs/step1_main.json": "291e73a3eaf372dd43070480e4e2b4f99b8c5a23c4fd5dd7c9a6bd4f3c81e1f0",
     "openfda_rxqa.py": "6a6bc9bf4a12277852c5dca3cdac8f595741f39858ca3df48f9b2cea857ec2b5",
     "runs/step1-coverage-20261106-r2/catalog_manifest.json": "f0b931cc5809b5f672edad6c11e3f054f1a36ece6e5003e272ac29af90c3d545",

@@ -1,0 +1,19 @@
+response_id,correct,complete,faithful,unsupported_claim,notes
+1-1,1,1,N/A,0,Correctly reports that the information is absent; no cutoff appears in the provided excerpts.
+1-2,0,0,0,1,Fabricates a 450 ms cutoff and attributes it to [1]; that excerpt is not in the packet.
+1-3,1,1,N/A,0,Adequate refusal; the retrieved passages do not answer the QTc question.
+2-1,1,0,1,0,Mechanism and hypoglycaemia risk are correct, but the abnormal-liver-function qualifier is omitted.
+2-2,0,0,N/A,0,Incorrect refusal; C2 explicitly lists gemfibrozil with repaglinide as contraindicated.
+2-3,0,0,N/A,0,No answer and no evidence; the question is answerable, so the refusal is not appropriate.
+3-1,1,1,N/A,0,No answer is available and the response says so.
+3-2,1,1,N/A,0,C1 states that severe hepatic impairment is unstudied and contains no D-dimer interval.
+3-3,1,1,N/A,0,Correct refusal; none of the passages gives a D-dimer monitoring interval.
+4-1,1,1,N/A,0,The enteral routes are complete and the negative statement about IV administration is correct.
+4-2,1,1,N/A,0,Same approved routes as the reference; no citation markers to audit.
+4-3,0,0,N/A,1,States that only IV is approved, which C1 directly contradicts.
+5-1,1,1,1,0,Both the beta2 bronchospasm point and the thyrotoxicosis withdrawal warning are covered by C1/C5.
+5-2,1,0,N/A,1,Core mechanism is right, but the thyroid-crisis warning is absent and the anxiety/palpitation claim is unsupported.
+5-3,1,0,N/A,0,Captures withdrawal crisis and beta2 blockade, but attaches tachycardia masking to hypoglycaemia.
+6-1,1,0,N/A,0,Core contraindications present, but personal or family history of MTC is not stated.
+6-2,0,0,1,1,C4 supports MTC and C5 supports gastroparesis, but the cited wording overstates other thyroid cancers.
+6-3,0,0,N/A,1,Describes baclofen/gabapentin contraindications rather than RYBELSUS; no supporting text.

@@ -1,0 +1,16 @@
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrrrrr}
+\toprule
+System & Corr. & Comp. & Both & Faith. & Unsup. \\
+\midrule
+No RAG & 2/6 & 1/6 & 1/6 & 0/1 & 4/6 \\
+General RAG & 4/6 & 3/6 & 3/6 & -- & 0/6 \\
+Domain RAG & 5/6 & 5/6 & 5/6 & 2/3 & 1/6 \\
+\bottomrule
+\end{tabular}
+\caption{Consensus blind review, six answers per system. Corr.=correct, Comp.=complete, Faith.=faithful, Unsup.=unsupported. Faithful excludes answers without explicit citation IDs; unsupported counts all answers.}
+\label{tab:blind-review}
+\end{table}

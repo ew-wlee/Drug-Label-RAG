@@ -1,0 +1,106 @@
+{
+  "run_id": "step1-coverage-20261106-r2",
+  "status": "passed",
+  "blocking_items": [],
+  "checks": [
+    {
+      "name": "openfda_source",
+      "passed": true,
+      "evidence": {
+        "status": "passed_with_same_day_override",
+        "archives": 14,
+        "same_day_changed_archives": 14
+      }
+    },
+    {
+      "name": "rxqa_source_and_answer_separation",
+      "passed": true,
+      "evidence": {
+        "questions": 300,
+        "answer_key_entries": 300
+      }
+    },
+    {
+      "name": "coverage_mapping_and_blind_review",
+      "passed": true,
+      "evidence": {
+        "coverage_counts": {
+          "stem_exact": 296,
+          "option_only": 4
+        },
+        "unreviewed": []
+      }
+    },
+    {
+      "name": "frozen_subset",
+      "passed": true,
+      "evidence": {
+        "labels": 10000,
+        "reasons": {
+          "background": 1621,
+          "fdarxbench_set_id": 698,
+          "rxqa_stem": 4911,
+          "hard_negative": 2000,
+          "rxqa_option": 2455
+        }
+      }
+    },
+    {
+      "name": "index_integrity",
+      "passed": true,
+      "evidence": {
+        "counts": {
+          "labels": 10000,
+          "fixed": 395316,
+          "section": 454013,
+          "sparse": 454013
+        },
+        "vector_sizes": {
+          "fixed": 607205376,
+          "section": 697363968
+        },
+        "fts_warfarin_hits": 11648
+      }
+    },
+    {
+      "name": "paired_gold_free_prompts",
+      "passed": true,
+      "evidence": {
+        "rows": 900,
+        "questions": 300,
+        "forbidden_rows": 0,
+        "input_hash_ok": true,
+        "evidence_ok": true,
+        "evidence_resolved": true
+      }
+    },
+    {
+      "name": "extension_60",
+      "passed": true,
+      "evidence": {
+        "Easy": 15,
+        "Hard": 15,
+        "Medium": 15,
+        "Trivial": 15
+      }
+    },
+    {
+      "name": "fdarxbench_frozen",
+      "passed": true,
+      "evidence": {
+        "labels": 699,
+        "questions": 17207,
+        "retrieval_qids": 90
+      }
+    },
+    {
+      "name": "resource_caps",
+      "passed": true,
+      "evidence": {
+        "index_bytes": 3979038690,
+        "chunks": 849329,
+        "prepare_peak_rss_bytes": 1627111424
+      }
+    }
+  ]
+}

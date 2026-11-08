@@ -1,10 +1,9 @@
 # 接手指南 · Group 18
 
-**一句话**：Step 1 已做完并冻结，现在轮到 Step 2 —— 用同一份 900 行题目，跑 2B / 4B 两个模型共 1800 条预测，然后算准确率。
+**当前状态**：Step 1 已冻结，Step 2 的两款模型、三种条件、300 题共 1,800 条正式预测已完成。详见 [最终报告](report/Group18_Report_Final.pdf) 、[答辩 PPT](presentation/Group18_Presentation_Final.pptx) 与 [正式结果](runs/step2-rxqa-20261107/)。项目架构、结果和复跑命令见 [README](README.md)。
 
-> 先把下面两个空填上，再发给队友：
-> - GitHub 仓库：https://github.com/ew-wlee/Drug-Label-RAG
-> - OneDrive 大文件：https://hkustconnect-my.sharepoint.com/:f:/r/personal/zlioe_connect_ust_hk/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fzlioe%5Fconnect%5Fust%5Fhk%2FDocuments%2FMSBD5018%2DGroupProject&share=cgrEwqUfjGtVRbXLvs3HMmwtEgUBztFNxtQ4dbos%2DffhxWKkmA
+- GitHub 仓库：https://github.com/ew-wlee/Drug-Label-RAG
+- OneDrive 大文件：https://hkustconnect-my.sharepoint.com/:f:/r/personal/zlioe_connect_ust_hk/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fzlioe%5Fconnect%5Fust%5Fhk%2FDocuments%2FMSBD5018%2DGroupProject&share=cgrEwqUfjGtVRbXLvs3HMmwtEgUBztFNxtQ4dbos%2DffhxWKkmA
 
 ---
 
@@ -24,13 +23,13 @@
 
 ```sh
 # 1. 拿代码
-git clone [填仓库地址]
-cd drug-label-rag
+git clone https://github.com/ew-wlee/Drug-Label-RAG.git
+cd Drug-Label-RAG
 
 # 2. 放大文件（OneDrive 下载后拖回对应目录）
 #    runs/                 → 覆盖/合并到 runs/
 #    drug-label-*.zip      → 放到 data/openfda/
-# 校验一下没下错版本（对照 data/openfda/manifest.json 的 sha256）
+# 对照 runs/step1-coverage-20261106-r2/source_manifest.json 中实际冻结分卷的 SHA-256
 shasum -a 256 data/openfda/drug-label-0001-of-0014.json.zip
 
 # 3. 装环境
@@ -68,32 +67,19 @@ ollama serve
 
 ## 4. 四条红线
 
-1. **别覆盖** `runs/step1-coverage-20261106-r2/` 里已有的文件。只按第 5 节新增 `qwen-*.jsonl` 预测文件。
+1. **别覆盖** `runs/step1-coverage-20261106-r2/` 里已有的文件。新的预测放进单独的 Step 2 运行目录。
 2. **不要把答案喂给模型**。`rxqa_prompts.jsonl` 不含 gold，答案单独在 `rxqa_answer_key.json`，只用于打分。
 3. **改样本 / 提示词 / 参数 → 新建 run ID**，不要在冻结目录里改。索引命令的 `--out` 必须是新目录。
 4. **不重跑** `prepare-sources` / `catalog` / `map` / `select` / 索引，也不构建全量 openFDA 向量索引。
 
 ---
 
-## 5. 下一步：跑 Step 2
+## 5. 正式结果与剩余交接
 
-确认运行时和 Qwen3.5 2B/4B 的版本、量化、digest 并记进运行清单，**不要改 prompts**：
-
-```sh
-python openfda_rxqa.py evaluate \
-  --input runs/step1-coverage-20261106-r2/rxqa_prompts.jsonl \
-  --out runs/step1-coverage-20261106-r2/qwen-2b.jsonl \
-  --model qwen3.5:2b \
-  --answer-key runs/step1-coverage-20261106-r2/rxqa_answer_key.json
-
-python openfda_rxqa.py evaluate \
-  --input runs/step1-coverage-20261106-r2/rxqa_prompts.jsonl \
-  --out runs/step1-coverage-20261106-r2/qwen-4b.jsonl \
-  --model qwen3.5:4b \
-  --answer-key runs/step1-coverage-20261106-r2/rxqa_answer_key.json
-```
-
-要交的东西：overall / 分难度 accuracy、invalid rate、按题配对区间。RxQA 没有逐题 gold passage，**不要报检索 Recall**。主矩阵做完再谈扩展题、人工盲评和消融。
+- 用 `python scripts/summarize_rxqa.py runs/step1-coverage-20261106-r2 runs/step2-rxqa-20261107` 复核 1,800 条预测、分难度准确率并重算配对区间。
+- 下载包缺失的 `labels.sqlite` 已在本地下载目录重建。[恢复记录](runs/step2-rxqa-20261107/index-recovery.json) 列出原文件与新文件的 SHA-256。重建索引重新通过 [Step 1 九项验收](runs/step2-rxqa-20261107/recovered-index-validation.json)。正式答题可直接使用冻结提示。
+- 两位组员可按 [盲评说明](review/README.md) 独立评分。交卷后打开系统对应表，再汇总分歧。报告目前将人工评分列为待完成。
+- 如课程要求补交答辩材料或上传结果，由组员确认提交版本和渠道。
 
 ---
 

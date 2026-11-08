@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{llrrrrr}
+\toprule
+Model & RAG & All & Easy & Hard & Med. & Triv. \\
+\midrule
+2B & None & 33.7 & 35.2 & 34.1 & 27.5 & 38.8 \\
+ & General & 42.3 & 41.8 & 42.9 & 44.9 & 38.8 \\
+ & Domain & 43.0 & 50.5 & 37.4 & 42.0 & 40.8 \\
+\midrule
+4B & None & 40.7 & 42.9 & 34.1 & 44.9 & 42.9 \\
+ & General & 61.0 & 72.5 & 47.3 & 58.0 & 69.4 \\
+ & Domain & 62.3 & 73.6 & 50.5 & 58.0 & 69.4 \\
+\bottomrule
+\end{tabular}
+\caption{RxQA accuracy (\%). All conditions use the same 300 questions. Difficulty counts are 91 easy, 91 hard, 69 medium, and 49 trivial.}
+\label{tab:rxqa}
+\end{table}

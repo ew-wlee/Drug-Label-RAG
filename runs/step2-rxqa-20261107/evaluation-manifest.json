@@ -1,0 +1,24 @@
+{
+  "source_run": "step1-coverage-20261106-r2",
+  "questions": 300,
+  "systems": [
+    "no_rag",
+    "general",
+    "domain"
+  ],
+  "models": [
+    "qwen3.5:2b",
+    "qwen3.5:4b"
+  ],
+  "temperature": 0,
+  "seed": 5018,
+  "num_ctx": 8192,
+  "num_predict": 16,
+  "think": false,
+  "input_sha256": {
+    "MSBD5018-GroupProject/runs/step1-coverage-20261106-r2/rxqa_prompts.jsonl": "aebea2ab1905d9ed0b130971aae8e762f862661a138054554727c5b1f58620d5",
+    "MSBD5018-GroupProject/runs/step1-coverage-20261106-r2/rxqa_answer_key.json": "9d304894eb48c67c6404492c20da85510892fb5c327cbae30f03a2a8a9a6fce2",
+    "openfda_rxqa.py": "6a6bc9bf4a12277852c5dca3cdac8f595741f39858ca3df48f9b2cea857ec2b5",
+    "answer.py": "9c7523dc4a45712f2097aebc116e0c9a33f71a498759a391e27aafbda32accfb"
+  }
+}
